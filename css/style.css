@@ -1,26 +1,191 @@
-/* Start Global Rules  */
-* {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* Start Global R.linkses  */
 
 html {
   scroll-behavior: smooth;
 }
 
 body {
+  background-color: black;
   font-family: "Open Sans", sans-serif;
+  /* font-family: 'IBM Plex Sans', sans-serif; */
 }
 
 :root {
-  --main-color: rgb(0, 132, 255);
+  --main-color: rgb(6, 151, 247);
   --hover-color: rgb(0, 110, 212);
   --main-transition: .3s;
   --border-radius: 6px;
 }
+
+/* Change the color of selected text */
+::selection {
+  background-color: white; /* Orange background */
+  color: black; /* White text color */
+}
 /* End Global Rules  */
 
+/* Start Settings Box  */
+.settings-box {
+  position: fixed;
+  color: black;
+  z-index: 999;
+  top: 0;
+  left: -200px;
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 200px;
+  min-height: 100vh;
+  transition: var(--main-transition);
+  box-shadow: 0 0 15px #222;
+}
+
+.settings-box.open {
+  left: 0;
+}
+
+.settings-box i {
+  position: absolute;
+  right: -40px;
+  top: 70px;
+  background-color: var(--main-color);
+  padding: 8px 0;
+  text-align: center;
+  width: 40px;
+  font-size: 20px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  cursor: pointer;
+  transition: var(--main-transition);
+}
+
+.settings-box i:hover {
+  background-color: var(--hover-color);
+}
+
+.settings-box .settings-container {
+  
+}
+/* End Settings Box  */
+
+/* Start Landing Page */
+.landing-page {
+  position: relative;
+  min-height: 100vh;
+  background-image: url(../media/01.jpg);
+  background-size: cover;
+  transition: var(--main-transition);
+}
+
+.landing-page .overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.landing-page .header {
+  position: relative;
+  color: #ececee;
+  z-index: 2;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  margin: 0 50px;
+}
+
+.landing-page .header .logo a {
+  font-size: 19px;
+  letter-spacing: -1px;
+  font-weight: 800;
+  cursor: pointer;
+  background-color: white;
+  padding: 3px 7px;
+  border-radius: 24px;
+  transition: var(--main-transition);
+}
+
+.landing-page .header .logo a {
+  text-decoration: none;
+  color: var(--main-color);
+}
+
+.landing-page .header .logo a:hover {
+  background-color: #ccc;
+  color: black;
+  box-shadow: 0 0 5px white;
+}
+
+.landing-page .header .links {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  list-style: none;
+}
+
+.landing-page .header .links li {
+  position: relative;
+  user-select: none;
+}
+
+.landing-page .header .links li a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--main-transition);
+}
+
+.landing-page .header .links li a::before,
+.landing-page .header .links li a.active::before {
+  content: "";
+  position: absolute;
+  top: 22px;
+  left: 0;
+  height: 3px;
+  width: 0;
+  background-color: var(--main-color);
+  transition: var(--main-transition);
+}
+
+.landing-page .header .links li a:hover::before,
+.landing-page .header .links li a.active::before {
+  width: 100%;
+}
+
+.landing-page .header .links li a:hover,
+.landing-page .header .links li a.active {
+  color: var(--main-color);
+}
+
+.landing-page .intro-text {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  color: white;
+  text-align: center;
+  width: 90%;
+  padding: 0 30px;
+}
+
+.landing-page .intro-text h1 {
+  margin: 0;
+}
+
+.landing-page .intro-text h1 span {
+  color: var(--main-color);
+}
+
+.landing-page .intro-text p {
+  color: #ececee;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+/* End Landing Page */
