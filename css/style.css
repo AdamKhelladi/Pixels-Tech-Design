@@ -11,8 +11,8 @@ body {
 }
 
 :root {
-  --main-color: rgb(6, 151, 247);
-  --hover-color: rgb(0, 110, 212);
+  --main-color: #068bf7;
+  --hover-color: #006ed4;
   --main-transition: .3s;
   --border-radius: 6px;
 }
@@ -30,9 +30,9 @@ body {
   color: black;
   z-index: 999;
   top: 0;
-  left: -200px;
-  background-color: rgba(0, 0, 0, 0.7);
-  width: 200px;
+  left: -235px;
+  background-color: rgba(0, 0, 0, 0.9);
+  width: 235px;
   min-height: 100vh;
   transition: var(--main-transition);
   box-shadow: 0 0 15px #222;
@@ -42,7 +42,7 @@ body {
   left: 0;
 }
 
-.settings-box i {
+.settings-box .toggle-container {
   position: absolute;
   right: -40px;
   top: 70px;
@@ -57,13 +57,122 @@ body {
   transition: var(--main-transition);
 }
 
-.settings-box i:hover {
-  background-color: var(--hover-color);
+.settings-box .toggle-container:hover {
+  background-color: #ccc;
+  box-shadow: 0 0 3px white;
 }
 
-.settings-box .settings-container {
-  
+
+.settings-box i {
+  font-size: 20px;
+  transition: var(--main-transition);
 }
+
+.settings-box .settings-container .option-box {
+  padding: 20px 10px;  
+  background-color: #222;
+  margin: 20px 10px;
+  border-radius: 6px;
+}
+
+.settings-box .settings-container .option-box h4 {
+  color: #ccc;
+  background-color: #333;
+  padding: 10px;
+  border-radius: 6px;
+  margin: 0 0 20px;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.settings-box .settings-container .option-box .colors-list {
+  list-style: none;
+  text-align: center;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0 10px
+}
+
+.settings-box .settings-container .option-box .colors-list li {
+  color: white;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  transition: var(--main-transition);
+  cursor: pointer;
+  opacity: .5;
+}
+
+.settings-box .settings-container .option-box .colors-list li:hover {
+  opacity: .7;
+}
+
+.settings-box .settings-container .option-box .colors-list li.active {
+  opacity: 1;
+}
+
+.settings-box .settings-container .option-box .colors-list li:first-child {
+  background-color: #068bf7;
+}
+
+.settings-box .settings-container .option-box .colors-list li:nth-child(2) {
+  background-color: #fd0a5b;
+}
+
+.settings-box .settings-container .option-box .colors-list li:nth-child(3) {
+  background-color: #ff4b15;
+}
+
+.settings-box .settings-container .option-box .colors-list li:nth-child(4) {
+  background-color: #00e4d8;
+}
+
+.settings-box .settings-container .option-box .colors-list li:nth-child(5) {
+  background-color: #a200ff;
+}
+
+.settings-box .settings-container .random-backgrounds {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.settings-box .settings-container .random-backgrounds h4 {
+  font-size: 16px;
+}
+
+.settings-box .settings-container .random-backgrounds span {
+  background-color: var(--main-color);
+  color: black;
+  padding: 3px 20px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--main-transition);
+  opacity: .5;
+  user-select: none;
+}
+
+.settings-box .settings-container .random-backgroundsx .yes {
+  margin-right: 5px;
+}
+.settings-box .settings-container .random-backgrounds .no {
+  margin-left: 5px;
+}
+
+.settings-box .settings-container .random-backgrounds span:hover {
+  opacity: .7;
+}
+
+.settings-box .settings-container .random-backgrounds span.active {
+  opacity: 1;
+}
+
 /* End Settings Box  */
 
 /* Start Landing Page */
@@ -93,15 +202,14 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 0;
-  margin: 0 50px;
+  padding: 20px;
+  margin: 0 100px;
 }
 
-.landing-page .header .logo a {
-  font-size: 19px;
-  letter-spacing: -1px;
-  font-weight: 800;
+.landing-page .header .logo {
+  min-width: 87px;
   cursor: pointer;
+  text-align: center;
   background-color: white;
   padding: 3px 7px;
   border-radius: 24px;
@@ -109,14 +217,23 @@ body {
 }
 
 .landing-page .header .logo a {
+  font-size: 16px;
+  letter-spacing: -1px;
+  font-weight: 800;
   text-decoration: none;
   color: var(--main-color);
+  transition: var(--main-transition);
+  user-select: none;
 }
 
-.landing-page .header .logo a:hover {
+.landing-page .header .logo:hover {
   background-color: #ccc;
   color: black;
   box-shadow: 0 0 5px white;
+}
+
+.landing-page .header .logo:hover a {
+  color: black;
 }
 
 .landing-page .header .links {
@@ -124,18 +241,20 @@ body {
   align-items: center;
   gap: 35px;
   list-style: none;
+  margin: -10px 0 0 0;
 }
 
 .landing-page .header .links li {
   position: relative;
+  margin: 0;
   user-select: none;
 }
 
 .landing-page .header .links li a {
   color: white;
   text-decoration: none;
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 400;
   cursor: pointer;
   transition: var(--main-transition);
 }
