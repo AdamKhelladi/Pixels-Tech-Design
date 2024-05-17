@@ -10,7 +10,7 @@
 let landingPage = document.querySelector(".landing-page");
 let imagesArray = ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg"];
 
-let intervalId = setInterval(() => changeBackgroundUrl(), 1000);
+let intervalId = setInterval(() => changeBackgroundUrl(), 5000);
 
 // Toggle Spin Class On Icon
 let settingBox = document.querySelector(".settings-box");
@@ -37,6 +37,7 @@ colorIcons.forEach((color) => {
 
     removeActiveClass(colorIcons);
     addActiveClass(e.target);
+    checkBgFromLocalStorage();
   });
 });
 
@@ -47,16 +48,21 @@ getColorFromLocalStorage();
 let randomImgsBtn = document.querySelectorAll(".random-backgrounds div span");
 randomImgsBtn.forEach((btn) => {
   btn.addEventListener("click", (e) => {
-    removeActiveClass(randomImgsBtn);
+    removeActiveClass();
     addActiveClass(e.target);
 
     if (e.target.dataset.background === "no") {
+      localStorage.setItem("background_option", "no");
       stopChangingBackground();
     } else {
+      localStorage.setItem("background_option", "yes");
       changingBackground();
     }
   });
 });
+
+// Check If There's Local Storage Random Background Item
+checkBgFromLocalStorage();
 
 // Functions
 function changeBackgroundUrl() {
@@ -91,18 +97,43 @@ function addActiveClass(targetElement) {
   targetElement.classList.add("active");
 }
 
-function removeActiveClass(elements) {
-  elements.forEach((elements) => {
-    elements.classList.remove("active");
+function removeActiveClass() {
+  randomImgsBtn.forEach((btn) => {
+    btn.classList.remove("active");
   });
 }
 
 function changingBackground() {
-  intervalId = setInterval(() => changeBackgroundUrl(), 1000);
+  intervalId = setInterval(() => changeBackgroundUrl(), 5000);
 }
 
 function stopChangingBackground() {
   clearInterval(intervalId);
 }
 
+function addActiveClassFromLocalStorage() {
+  randomImgsBtn.forEach((btn) => {
+    if (btn.dataset.background === localStorage.getItem("background_option")) {
+      btn.classList.add("active");
+    }
+  });
+}
+
+function checkBgFromLocalStorage() {
+  let bgLocalItem = localStorage.getItem("background_option");
+
+  if (bgLocalItem !== null) {
+    if (bgLocalItem === "no") {
+      stopChangingBackground();
+      removeActiveClass();
+      addActiveClassFromLocalStorage();
+    } else {
+      changingBackground();
+      removeActiveClass();
+      addActiveClassFromLocalStorage();
+    }
+  }
+}
+
 // End Landing Page
+
