@@ -46,7 +46,7 @@ getColorFromLocalStorage();
 let randomImgsBtn = document.querySelectorAll(".random-backgrounds div span");
 randomImgsBtn.forEach((btn) => {
   btn.addEventListener("click", (e) => {
-    removeActiveClass();
+    removeActiveClass(randomImgsBtn);
     addActiveClass(e.target);
 
     if (e.target.dataset.background === "no") {
@@ -77,16 +77,61 @@ document.addEventListener("DOMContentLoaded", function () {
     let windowHeight = window.innerHeight;
     let windowScrollTop = window.pageYOffset;
 
-    if (windowScrollTop+1 > skillsOffsetTop + skillsOuterHeight - windowHeight) {
-      let allSkills = document.querySelectorAll(".skill-box .skill-progress span");
+    if (
+      windowScrollTop + 1 >
+      skillsOffsetTop + skillsOuterHeight - windowHeight
+    ) {
+      let allSkills = document.querySelectorAll(
+        ".skill-box .skill-progress span"
+      );
 
       allSkills.forEach((skill) => {
         skill.style.width = skill.dataset.progress;
-      })
+      });
     }
   };
 });
 
+// Create Popup Wit The Image
+let ourGallery = document.querySelectorAll(".gallery img");
+
+ourGallery.forEach((img) => {
+  img.addEventListener("click", (e) => {
+    let overley = document.createElement("div");
+    overley.className = "popup-overley";
+    document.body.appendChild(overley);
+
+    let popupBox = document.createElement("div");
+    popupBox.className = "popup-box";
+
+    if (img.alt !== null) {
+      let imgHeading = document.createElement("h2");
+      imgHeading.innerHTML = img.alt;
+
+      popupBox.appendChild(imgHeading);
+    }
+
+    let popupImg = document.createElement("img");
+    popupImg.src = img.src;
+
+    popupBox.appendChild(popupImg);
+    document.body.appendChild(popupBox);
+
+    let closeBtn = document.createElement("div");
+    closeBtn.className = "close-btn";
+
+    let xmark = document.createElement("i");
+    xmark.className = "fa-solid fa-xmark";
+
+    closeBtn.appendChild(xmark);
+    popupBox.appendChild(closeBtn);
+
+    closeBtn.addEventListener("click", () => {
+      popupBox.remove();
+      overley.remove();
+    })
+  });
+});
 
 // Functions
 function changeBackgroundUrl() {
@@ -104,6 +149,7 @@ function getColorFromLocalStorage() {
   let mainColor = localStorage.getItem("color_option");
   if (mainColor !== null) {
     document.querySelector(".links li a").style.transition = 0;
+    document.querySelector(".toggle-container").style.transition = 0;
     document.documentElement.style.setProperty("--main-color", mainColor);
 
     colorIcons.forEach((color) => {
@@ -121,9 +167,9 @@ function addActiveClass(targetElement) {
   targetElement.classList.add("active");
 }
 
-function removeActiveClass() {
-  randomImgsBtn.forEach((btn) => {
-    btn.classList.remove("active");
+function removeActiveClass(elements) {
+  elements.forEach((element) => {
+    element.classList.remove("active");
   });
 }
 
@@ -149,11 +195,11 @@ function checkBgFromLocalStorage() {
   if (bgLocalItem !== null) {
     if (bgLocalItem === "no") {
       stopChangingBackground();
-      removeActiveClass();
+      removeActiveClass(randomImgsBtn);
       addActiveClassFromLocalStorage();
     } else {
       changingBackground();
-      removeActiveClass();
+      removeActiveClass(randomImgsBtn);
       addActiveClassFromLocalStorage();
     }
   }
