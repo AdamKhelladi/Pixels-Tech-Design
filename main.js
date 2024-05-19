@@ -68,7 +68,7 @@ checkBgFromLocalStorage();
 function changeBackgroundUrl() {
   let randomImgage =
     imagesArray[Math.floor(Math.random() * imagesArray.length)];
-  landingPage.style.backgroundImage = `url(../media/${randomImgage})`;
+  landingPage.style.backgroundImage = `url(/media/${randomImgage})`;
 }
 
 function openSettingBox() {
@@ -136,4 +136,3 @@ function checkBgFromLocalStorage() {
 }
 
 // End Landing Page
-
