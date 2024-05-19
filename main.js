@@ -4,8 +4,6 @@
   -------------------------
 */
 
-// Start Landing Page
-
 // Make Background URL Changing
 let landingPage = document.querySelector(".landing-page");
 let imagesArray = ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg"];
@@ -63,6 +61,32 @@ randomImgsBtn.forEach((btn) => {
 
 // Check If There's Local Storage Random Background Item
 checkBgFromLocalStorage();
+
+// Skills Progress Transition
+document.addEventListener("DOMContentLoaded", function () {
+  let ourSkills = document.querySelector(".skills");
+
+  if (!ourSkills) {
+    console.error("No element with class 'skills' found.");
+    return;
+  }
+
+  window.onscroll = function () {
+    let skillsOffsetTop = ourSkills.offsetTop;
+    let skillsOuterHeight = ourSkills.offsetHeight;
+    let windowHeight = window.innerHeight;
+    let windowScrollTop = window.pageYOffset;
+
+    if (windowScrollTop+1 > skillsOffsetTop + skillsOuterHeight - windowHeight) {
+      let allSkills = document.querySelectorAll(".skill-box .skill-progress span");
+
+      allSkills.forEach((skill) => {
+        skill.style.width = skill.dataset.progress;
+      })
+    }
+  };
+});
+
 
 // Functions
 function changeBackgroundUrl() {
@@ -134,5 +158,3 @@ function checkBgFromLocalStorage() {
     }
   }
 }
-
-// End Landing Page
