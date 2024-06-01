@@ -59,8 +59,8 @@ randomImgsBtn.forEach((btn) => {
   });
 });
 
-// Check If There's Local Storage Random Background Item
-checkBgFromLocalStorage();
+// Check If There's Background Option Item In Local Storage
+checkBgLocalStorage();
 
 // Skills Progress Transition
 document.addEventListener("DOMContentLoaded", function () {
@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 });
 
-// Create Popup Wit The Image
+// Create Popup With The Image
 let ourGallery = document.querySelectorAll(".gallery img");
 
 ourGallery.forEach((img) => {
@@ -129,7 +129,7 @@ ourGallery.forEach((img) => {
     closeBtn.addEventListener("click", () => {
       popupBox.remove();
       overley.remove();
-    })
+    });
   });
 });
 
@@ -139,6 +139,28 @@ let allLinks = document.querySelectorAll(".links a");
 
 scrollToSection(allBullets);
 scrollToSection(allLinks);
+
+// Show Bullets
+let bulletsSpan = document.querySelectorAll(".show-bullets div span");
+let bulletsContainer = document.querySelector(".nav-bullets");
+
+bulletsSpan.forEach((span) => {
+  span.addEventListener("click", (e) => {
+    removeActiveClass(bulletsSpan);
+    addActiveClass(e.target);
+
+    if (span.dataset.display === "yes") {
+      bulletsContainer.style.display = "block";
+      localStorage.setItem("bullets_option", "block");
+    } else {
+      localStorage.setItem("bullets_option", "none");
+      bulletsContainer.style.display = "none";
+    }
+  });
+});
+
+// Check If There's Bulleets Option Item In Local Storage
+checkbulletsLocalStorage();
 
 // Functions
 function changeBackgroundUrl() {
@@ -196,7 +218,7 @@ function addActiveClassFromLocalStorage() {
   });
 }
 
-function checkBgFromLocalStorage() {
+function checkBgLocalStorage() {
   let bgLocalItem = localStorage.getItem("background_option");
 
   if (bgLocalItem !== null) {
@@ -208,6 +230,24 @@ function checkBgFromLocalStorage() {
       changingBackground();
       removeActiveClass(randomImgsBtn);
       addActiveClassFromLocalStorage();
+    }
+  }
+}
+
+function checkbulletsLocalStorage() {
+  let bulletsLocalItem = localStorage.getItem("bullets_option");
+
+  if (bulletsLocalItem !== null) {
+    if (bulletsLocalItem === "block") {
+      removeActiveClass(bulletsSpan);
+      bulletsContainer.style.display = "block";
+
+      document.querySelector(".show-bullets .yes").classList.add("active");
+    } else {
+      removeActiveClass(bulletsSpan);
+      bulletsContainer.style.display = "none";
+
+      document.querySelector(".show-bullets .no").classList.add("active");
     }
   }
 }
@@ -224,5 +264,5 @@ function scrollToSection(elements) {
         behavior: "smooth",
       });
     });
-  }); 
+  });
 }
