@@ -133,6 +133,13 @@ ourGallery.forEach((img) => {
   });
 });
 
+// Manage Bullets and Links
+let allBullets = document.querySelectorAll(".nav-bullets .bullet");
+let allLinks = document.querySelectorAll(".links a");
+
+scrollToSection(allBullets);
+scrollToSection(allLinks);
+
 // Functions
 function changeBackgroundUrl() {
   let randomImgage =
@@ -203,4 +210,19 @@ function checkBgFromLocalStorage() {
       addActiveClassFromLocalStorage();
     }
   }
+}
+
+function scrollToSection(elements) {
+  elements.forEach((element) => {
+    element.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      removeActiveClass(elements);
+      addActiveClass(e.target);
+
+      document.querySelector(e.target.dataset.section).scrollIntoView({
+        behavior: "smooth",
+      });
+    });
+  }); 
 }
