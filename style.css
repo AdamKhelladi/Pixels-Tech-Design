@@ -142,7 +142,8 @@ body {
   background-color: #a200ff;
 }
 
-.settings-box .settings-container .random-backgrounds {
+.settings-box .settings-container .random-backgrounds,
+.show-bullets {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -152,7 +153,7 @@ body {
   font-size: 16px;
 }
 
-.settings-box .settings-container .random-backgrounds span {
+.settings-box .settings-container .option-box span {
   background-color: var(--main-color);
   color: black;
   padding: 3px 20px;
@@ -165,18 +166,18 @@ body {
   user-select: none;
 }
 
-.settings-box .settings-container .random-backgroundsx .yes {
+.settings-box .settings-container .option-box .yes {
   margin-right: 5px;
 }
-.settings-box .settings-container .random-backgrounds .no {
+.settings-box .settings-container .option-box .no {
   margin-left: 5px;
 }
 
-.settings-box .settings-container .random-backgrounds span:hover {
+.settings-box .settings-container .option-box span:hover {
   opacity: .7;
 }
 
-.settings-box .settings-container .random-backgrounds span.active {
+.settings-box .settings-container .option-box span.active {
   opacity: 1;
 }
 /* End Settings Box  */
@@ -887,5 +888,4 @@ box-shadow: 0 0 10px var(--main-color);
   }
 }
 /* End Media */
-
 
