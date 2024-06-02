@@ -8,7 +8,17 @@
 let landingPage = document.querySelector(".landing-page");
 let imagesArray = ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg"];
 
-let intervalId = setInterval(() => changeBackgroundUrl(), 5000);
+let intervalId;
+function changeBackgroundUrl() {
+  let randomImage = imagesArray[Math.floor(Math.random() * imagesArray.length)];
+  landingPage.style.backgroundImage = `url(/media/${randomImage})`;
+}
+
+function startChangingBackground() {
+  if (intervalId) clearInterval(intervalId);
+  intervalId = setInterval(changeBackgroundUrl, 5000);
+}
+startChangingBackground();
 
 // Toggle Spin Class On Icon
 let settingBox = document.querySelector(".settings-box");
@@ -16,6 +26,11 @@ let gearContainer = document.querySelector(".toggle-container");
 let gearBtn = document.querySelector(".toggle-container .fa-gear");
 
 gearContainer.addEventListener("click", openSettingBox);
+
+function openSettingBox() {
+  gearBtn.classList.toggle("fa-spin");
+  settingBox.classList.toggle("open");
+}
 
 // Switch Colors
 let colorIcons = document.querySelectorAll(".colors-list li");
@@ -35,12 +50,25 @@ colorIcons.forEach((color) => {
 
     removeActiveClass(colorIcons);
     addActiveClass(e.target);
-    checkBgFromLocalStorage();
+    checkBgLocalStorage();
   });
 });
 
 // Get Color From Local Storage
 getColorFromLocalStorage();
+
+function getColorFromLocalStorage() {
+  let mainColor = localStorage.getItem("color_option");
+  if (mainColor !== null) {
+    document.documentElement.style.setProperty("--main-color", mainColor);
+
+    colorIcons.forEach((color) => {
+      if (color.dataset.color === mainColor) {
+        color.classList.add("active");
+      }
+    });
+  }
+}
 
 // Random Background Images
 let randomImgsBtn = document.querySelectorAll(".random-backgrounds div span");
@@ -51,16 +79,37 @@ randomImgsBtn.forEach((btn) => {
 
     if (e.target.dataset.background === "no") {
       localStorage.setItem("background_option", "no");
-      stopChangingBackground();
+      clearInterval(intervalId);
     } else {
       localStorage.setItem("background_option", "yes");
-      changingBackground();
+      startChangingBackground();
     }
   });
 });
 
 // Check If There's Background Option Item In Local Storage
 checkBgLocalStorage();
+
+function checkBgLocalStorage() {
+  let bgLocalItem = localStorage.getItem("background_option");
+  if (bgLocalItem !== null) {
+    if (bgLocalItem === "no") {
+      clearInterval(intervalId);
+    } else {
+      startChangingBackground();
+    }
+    removeActiveClass(randomImgsBtn);
+    addActiveClassFromLocalStorage();
+  }
+}
+
+function addActiveClassFromLocalStorage() {
+  randomImgsBtn.forEach((btn) => {
+    if (btn.dataset.background === localStorage.getItem("background_option")) {
+      btn.classList.add("active");
+    }
+  });
+}
 
 // Skills Progress Transition
 document.addEventListener("DOMContentLoaded", function () {
@@ -97,9 +146,9 @@ let ourGallery = document.querySelectorAll(".gallery img");
 
 ourGallery.forEach((img) => {
   img.addEventListener("click", (e) => {
-    let overley = document.createElement("div");
-    overley.className = "popup-overley";
-    document.body.appendChild(overley);
+    let overlay = document.createElement("div");
+    overlay.className = "popup-overlay";
+    document.body.appendChild(overlay);
 
     let popupBox = document.createElement("div");
     popupBox.className = "popup-box";
@@ -128,7 +177,7 @@ ourGallery.forEach((img) => {
 
     closeBtn.addEventListener("click", () => {
       popupBox.remove();
-      overley.remove();
+      overlay.remove();
     });
   });
 });
@@ -139,6 +188,21 @@ let allLinks = document.querySelectorAll(".links a");
 
 scrollToSection(allBullets);
 scrollToSection(allLinks);
+
+function scrollToSection(elements) {
+  elements.forEach((element) => {
+    element.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      removeActiveClass(elements);
+      addActiveClass(e.target);
+
+      document.querySelector(e.target.dataset.section).scrollIntoView({
+        behavior: "smooth",
+      });
+    });
+  });
+}
 
 // Show Bullets
 let bulletsSpan = document.querySelectorAll(".show-bullets div span");
@@ -159,82 +223,10 @@ bulletsSpan.forEach((span) => {
   });
 });
 
-// Check If There's Bulleets Option Item In Local Storage
-checkbulletsLocalStorage();
+// Check If There's Bullets Option Item In Local Storage
+checkBulletsLocalStorage();
 
-// Functions
-function changeBackgroundUrl() {
-  let randomImgage =
-    imagesArray[Math.floor(Math.random() * imagesArray.length)];
-  landingPage.style.backgroundImage = `url(/media/${randomImgage})`;
-}
-
-function openSettingBox() {
-  gearBtn.classList.toggle("fa-spin");
-  settingBox.classList.toggle("open");
-}
-
-function getColorFromLocalStorage() {
-  let mainColor = localStorage.getItem("color_option");
-  if (mainColor !== null) {
-    document.querySelector(".links li a").style.transition = 0;
-    document.querySelector(".toggle-container").style.transition = 0;
-    document.documentElement.style.setProperty("--main-color", mainColor);
-
-    colorIcons.forEach((color) => {
-      if (
-        color.dataset.color ===
-        document.documentElement.style.getPropertyValue("--main-color")
-      ) {
-        color.classList.add("active");
-      }
-    });
-  }
-}
-
-function addActiveClass(targetElement) {
-  targetElement.classList.add("active");
-}
-
-function removeActiveClass(elements) {
-  elements.forEach((element) => {
-    element.classList.remove("active");
-  });
-}
-
-function changingBackground() {
-  intervalId = setInterval(() => changeBackgroundUrl(), 5000);
-}
-
-function stopChangingBackground() {
-  clearInterval(intervalId);
-}
-
-function addActiveClassFromLocalStorage() {
-  randomImgsBtn.forEach((btn) => {
-    if (btn.dataset.background === localStorage.getItem("background_option")) {
-      btn.classList.add("active");
-    }
-  });
-}
-
-function checkBgLocalStorage() {
-  let bgLocalItem = localStorage.getItem("background_option");
-
-  if (bgLocalItem !== null) {
-    if (bgLocalItem === "no") {
-      stopChangingBackground();
-      removeActiveClass(randomImgsBtn);
-      addActiveClassFromLocalStorage();
-    } else {
-      changingBackground();
-      removeActiveClass(randomImgsBtn);
-      addActiveClassFromLocalStorage();
-    }
-  }
-}
-
-function checkbulletsLocalStorage() {
+function checkBulletsLocalStorage() {
   let bulletsLocalItem = localStorage.getItem("bullets_option");
 
   if (bulletsLocalItem !== null) {
@@ -252,17 +244,13 @@ function checkbulletsLocalStorage() {
   }
 }
 
-function scrollToSection(elements) {
+// Utility Functions
+function addActiveClass(targetElement) {
+  targetElement.classList.add("active");
+}
+
+function removeActiveClass(elements) {
   elements.forEach((element) => {
-    element.addEventListener("click", (e) => {
-      e.preventDefault();
-
-      removeActiveClass(elements);
-      addActiveClass(e.target);
-
-      document.querySelector(e.target.dataset.section).scrollIntoView({
-        behavior: "smooth",
-      });
-    });
+    element.classList.remove("active");
   });
 }
