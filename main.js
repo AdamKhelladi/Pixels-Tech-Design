@@ -244,6 +244,23 @@ function checkBulletsLocalStorage() {
   }
 }
 
+// Reset Options Button
+let resetBtn = document.querySelector(".reset-options");
+resetBtn.addEventListener("click", () => {
+  // localStorage.clear();
+  localStorage.removeItem("color_option");
+  localStorage.removeItem("background_option");
+  localStorage.removeItem("bullets_option");
+
+  location.reload();
+});
+
+// Show Links Whene Clicking on Bars Button
+let barsBtn = document.querySelector(".links-container i");
+barsBtn.addEventListener("click", () => {
+  document.querySelector(".links").classList.toggle("open");
+});
+
 // Utility Functions
 function addActiveClass(targetElement) {
   targetElement.classList.add("active");
@@ -252,5 +269,21 @@ function addActiveClass(targetElement) {
 function removeActiveClass(elements) {
   elements.forEach((element) => {
     element.classList.remove("active");
+  });
+}
+
+// Click On Body To Close Menu
+closeMenu();
+function closeMenu() {
+  document.body.addEventListener("click", (event) => {
+    if (!event.target.closest(".links-container i")) {
+      document.querySelector(".links.open")?.classList.remove("open");
+    }
+    if (
+      !event.target.closest(".toggle-container") &&
+      !event.target.closest(".settings-box")
+    ) {
+      document.querySelector(".settings-box.open")?.classList.remove("open");
+    }
   });
 }
