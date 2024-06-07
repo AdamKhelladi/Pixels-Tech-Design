@@ -11,7 +11,7 @@ let imagesArray = ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg"];
 let intervalId;
 function changeBackgroundUrl() {
   let randomImage = imagesArray[Math.floor(Math.random() * imagesArray.length)];
-  landingPage.style.backgroundImage = `url(media/${randomImage})`;
+  landingPage.style.backgroundImage = `url(/media/${randomImage})`;
 }
 
 function startChangingBackground() {
