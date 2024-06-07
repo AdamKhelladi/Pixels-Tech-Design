@@ -352,6 +352,10 @@ body {
   margin: -10px 0 0 0;
 }
 
+.landing-page .header .links.open {
+  box-shadow: 0 0 10px #333;
+}
+
 .landing-page .header .links li {
   position: relative;
   margin: 0;
@@ -1146,6 +1150,7 @@ box-shadow: 0 0 10px var(--main-color);
     right: 7px;
     border: 8px solid;
     border-color: transparent transparent rgba(0, 0, 0, 0.7) transparent;
+    z-index: 2;
   }
   .landing-page .header .links.open li {
     width: 100%;
@@ -1275,5 +1280,6 @@ box-shadow: 0 0 10px var(--main-color);
   }
 }
 /* End Media */
+
 
 
