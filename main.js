@@ -100,6 +100,8 @@ function checkBgLocalStorage() {
     }
     removeActiveClass(randomImgsBtn);
     addActiveClassFromLocalStorage();
+  } else {
+    startChangingBackground(); // Ensure this starts if no setting exists
   }
 }
 
@@ -259,6 +261,7 @@ resetBtn.addEventListener("click", () => {
 let barsBtn = document.querySelector(".links-container i");
 barsBtn.addEventListener("click", () => {
   document.querySelector(".links").classList.toggle("open");
+  document.querySelector(".links-container").classList.toggle("open");
 });
 
 // Utility Functions
