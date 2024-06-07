@@ -281,6 +281,7 @@ function closeMenu() {
   document.body.addEventListener("click", (event) => {
     if (!event.target.closest(".links-container i")) {
       document.querySelector(".links.open")?.classList.remove("open");
+      document.querySelector(".links-container.open").classList.remove("open");
     }
     if (
       !event.target.closest(".toggle-container") &&
