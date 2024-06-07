@@ -1139,7 +1139,7 @@ box-shadow: 0 0 10px var(--main-color);
     background-color: rgba(0, 0, 0, 0.7);
     width: 260px;
   }
-  .landing-page .header .links-container::before {
+  .landing-page .header .links-container.open::before {
     content: "";
     position: absolute;
     top: 30px;
