@@ -184,7 +184,7 @@ ourGallery.forEach((img) => {
   });
 });
 
-// Manage Bullets and Links
+// Manage Bullets And Links
 let allBullets = document.querySelectorAll(".nav-bullets .bullet");
 let allLinks = document.querySelectorAll(".links a");
 
